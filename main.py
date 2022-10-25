@@ -26,3 +26,4 @@ if __name__ == "__main__":
     p = Puzzle(init2, obj)
     tree = Tree(p)
     tree.generate()
+    tree.print()
