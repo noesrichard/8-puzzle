@@ -62,7 +62,7 @@ class Node:
 
     def print(self):
         spaces = ' ' * self.g() * 4
-        print(f"{spaces}f = {self.f}")
+        print(f"{spaces}f(n) = {self.f}, g(n) = {self.g()}, h(n) = {self.puzzle.h()}")
         print(self.puzzle.print(spaces))
         if self.children:
             for child in self.children:
