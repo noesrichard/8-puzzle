@@ -12,12 +12,9 @@ class Node:
         self.children.append(child)
 
     def generate(self): 
-        if self.parent:
-            print(self.parent.puzzle.print())
         if self.puzzle.is_obj():
             return self
         for i in Moves:
-            print(i)
             matrix = self.puzzle.get_matrix()
             new_puzzle = Puzzle(matrix, self.puzzle.obj)
             if new_puzzle.move(i):
@@ -25,7 +22,7 @@ class Node:
                     if not self.parent.puzzle.equals(new_puzzle):
                         self.add_child(new_puzzle)
                     else: 
-                        print(f"Cannot make that same move: {i}, {self.puzzle.i}, {self.puzzle.j}")
+                        print(f"Cannot make that same move: {i}, position = ({self.puzzle.i}, {self.puzzle.j})")
                 if not self.parent:
                     self.add_child(new_puzzle)
         return None
@@ -85,7 +82,26 @@ class Node:
         if self.children:
             for child in self.children:
                 child.print()
+
+    def print_as_child(self):
+        f_current = self.g() + self.puzzle.h() 
+        spaces = '  '
+        prefix = spaces + "|__" if self.parent else ""
+        print(f"{prefix} g(n) = {self.g()}, h(n) = {self.puzzle.h()}, f(n) = {f_current}, hoja={' SI' if self.is_leaf() else ' NO'} {'****SOLUCION*****' if self.puzzle.is_obj() else ''}")
+        print(self.puzzle.print(prefix))
+        if self.children:
+            for child in self.children:
+                child.print()
+
     def print_alone(self):
         f_current = self.g() + self.puzzle.h() 
         print(f"f = {f_current}")
         print(self.puzzle.print())
+
+    def print_with_children(self):
+        f_current = self.g() + self.puzzle.h() 
+        print(f"g(n) = {self.g()}, h(n) = {self.puzzle.h()}, f(n) = {f_current}, hoja={' SI' if self.is_leaf() else ' NO'} {'****SOLUCION*****' if self.puzzle.is_obj() else ''}")
+        print(self.puzzle.print())
+        if self.children:
+            for child in self.children:
+                child.print_as_child()

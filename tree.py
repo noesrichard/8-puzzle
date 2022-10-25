@@ -11,15 +11,17 @@ class Tree:
         self.current = self.root
         self.previous = self.current
         solution = None
-        i = 0
         while solution is None:
-            self.current = self.search_lowest_leaf_node_f()
+            print("---------------------------------------------------------------------------- NEW ITERATION -------------------------------------------------------------------------------------------")
             self.print()
+            self.current = self.search_lowest_leaf_node_f()
             if self.current == self.previous:
                 highest = self.search_hig_leaf_node_f()
                 self.current = self.search_low_leaf_node_f(highest)
             if self.current:
                 response = self.current.generate()
+                print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ CURRENT PUZZLE +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+                self.current.print_with_children()
                 if response is not None:
                     self.solutions.append(response)
                     solution = response

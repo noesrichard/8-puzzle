@@ -26,9 +26,3 @@ if __name__ == "__main__":
     p = Puzzle(init2, obj)
     tree = Tree(p)
     tree.generate()
-    print("----------------------------------PRINT TREE---------------------------------------")
-    tree.print()
-    lowest = tree.search_lowest_leaf_node_f()
-    if lowest:
-        print(lowest.print_alone())
-        print(lowest.g)
