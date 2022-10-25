@@ -12,13 +12,8 @@ class Node:
         self.children.append(child)
 
     def generate(self): 
-        print("***************NEW ITERATION***************")
         if self.parent:
-            print("&&&&&&&&PARENT^^^^^^^^^")
             print(self.parent.puzzle.print())
-
-        print("&&&&&&&&SELF^^^^^^^^^")
-        print(self.puzzle.print())
         if self.puzzle.is_obj():
             return self
         for i in Moves:
@@ -52,21 +47,45 @@ class Node:
         return level
 
     def search_lowest_leaf_node_f(self, lowest):
+        f_lowest = lowest.g() + lowest.puzzle.h()
+        f_current = self.g() + self.puzzle.h() 
         if self.is_leaf():
-            if lowest.f >= self.f:
+            if f_lowest >= f_current:
                 return self
         if self.children: 
             for child in self.children:
                 lowest = child.search_lowest_leaf_node_f(lowest)
         return lowest
+    
+    def search_high_leaf_node_f(self, highest):
+        if self.is_leaf() and self.g() + self.puzzle.h() > highest.g() + highest.puzzle.h():
+            return self
+        if self.children: 
+            for child in self.children:
+                highest = child.search_high_leaf_node_f(highest)
+        return highest
+    
+    def search_low_leaf_node_f(self, lowest):
+        if self.is_leaf() and self.g() + self.puzzle.h() < lowest.g() + lowest.puzzle.h():
+            return self
+        if self.children: 
+            for child in self.children:
+                lowest = child.search_low_leaf_node_f(lowest)
+        return lowest
+
+
+
 
     def print(self):
+        f_current = self.g() + self.puzzle.h() 
         spaces = ' ' * self.g() * 4
-        print(f"{spaces}f(n) = {self.f}, g(n) = {self.g()}, h(n) = {self.puzzle.h()}")
-        print(self.puzzle.print(spaces))
+        prefix = spaces + "|__" if self.parent else ""
+        print(f"{prefix} g(n) = {self.g()}, h(n) = {self.puzzle.h()}, f(n) = {f_current}, hoja={' SI' if self.is_leaf() else ' NO'} ")
+        print(self.puzzle.print(prefix))
         if self.children:
             for child in self.children:
                 child.print()
     def print_alone(self):
-        print(f"f = {self.f}")
+        f_current = self.g() + self.puzzle.h() 
+        print(f"f = {f_current}")
         print(self.puzzle.print())

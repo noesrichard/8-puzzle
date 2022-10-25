@@ -75,13 +75,13 @@ class Puzzle:
 
 
     def print(self, spaces = ''): 
-        text = spaces + "-----\n"
+        text = spaces + "_____ \n"
         for row in self.matrix:
             text += spaces
             for n in row:
                 text +=  str(n) + ' '
             text += '\n'
-        text += spaces + '-----'
+        text += spaces + '_____ '
         return text
     
     def get_matrix(self) -> list[list[int]]:
