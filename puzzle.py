@@ -76,8 +76,15 @@ class Puzzle:
 
     def print(self, spaces = ''): 
         text = spaces + "_____ \n"
+        blanks = ""
+        for i in range(len(spaces)):
+            if i == len(spaces)-3:
+                blanks += "|"
+            else:
+                blanks += " "
+
         for row in self.matrix:
-            text += spaces
+            text += blanks
             for n in row:
                 text +=  str(n) + ' '
             text += '\n'

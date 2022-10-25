@@ -78,7 +78,7 @@ class Node:
 
     def print(self):
         f_current = self.g() + self.puzzle.h() 
-        spaces = ' ' * self.g() * 4
+        spaces = ' ' * self.g() * 5
         prefix = spaces + "|__" if self.parent else ""
         print(f"{prefix} g(n) = {self.g()}, h(n) = {self.puzzle.h()}, f(n) = {f_current}, hoja={' SI' if self.is_leaf() else ' NO'} {'****SOLUCION*****' if self.puzzle.is_obj() else ''}")
         print(self.puzzle.print(prefix))
