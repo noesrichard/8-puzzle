@@ -59,7 +59,7 @@ class Puzzle:
         }
         return directions[direction]
 
-    def is_obj(self) -> bool:
+    def is_solved(self) -> bool:
         for i in range(len(self.matrix)):
             for j in range(len(self.matrix[i])):
                 if self.matrix[i][j] != self.obj[i][j]:

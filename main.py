@@ -1,6 +1,6 @@
 from puzzle import Puzzle, Moves
 from tree import Tree
-from node import Node
+from printer import TreePrinter
 
 UP = Moves.UP
 DOWN = Moves.DOWN
@@ -23,7 +23,8 @@ if __name__ == "__main__":
         ,[4,5,6]
         ,[7,8,0]
     ]
-    p = Puzzle(init2, obj)
+    p = Puzzle(init, obj)
     tree = Tree(p)
     tree.generate()
-    tree.print()
+    printer = TreePrinter(tree)
+    printer.print_tree()

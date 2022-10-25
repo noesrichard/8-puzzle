@@ -1,8 +1,7 @@
-from multiprocessing.connection import wait
 from node import Node
 from puzzle import Puzzle
 class Tree:
-    def __init__(self, puzzle) -> None:
+    def __init__(self, puzzle: Puzzle) -> None:
         self.root = None
         self.puzzle = puzzle
         self.solutions = []
@@ -20,7 +19,6 @@ class Tree:
             self.current = self.root.search_low_leaf_node_f(lowest)
 
             if self.current:
-                self.current.print_with_children()
 
                 response = self.current.generate()
 
@@ -31,8 +29,4 @@ class Tree:
 
             self.previous = self.current
 
-    def print(self):
-        if self.root:
-            self.root.print()
-        else:
-            print("None root")
+    
