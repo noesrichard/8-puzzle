@@ -9,7 +9,6 @@ class Node:
 
     def add_child(self, puzzle):
         if self.is_repeated(puzzle):
-            #print( f"Cannot make that same move: position = ({self.puzzle.i}, {self.puzzle.j})")
             return
         child = Node(puzzle)
         child.parent = self
@@ -19,13 +18,12 @@ class Node:
         if self.parent:
             return self.parent.puzzle.equals(puzzle)
 
-    def generate(self):
+    def generate_children(self):
         if self.puzzle.is_solved():
             return self
         for i in Moves:
             matrix = self.puzzle.get_matrix()
             new_puzzle = Puzzle(matrix, self.puzzle.obj)
-            #print(f"Move done: {i} init: {self.puzzle.i},{self.puzzle.j} next: {new_puzzle.i},{new_puzzle.j}")
             if new_puzzle.move(i):
                 self.add_child(new_puzzle)
         return None
@@ -46,12 +44,12 @@ class Node:
             p = p.parent
         return level
 
-    def search_low_leaf_node_f(self, lowest):
+    def search_leaf_node_lower_than(self, lowest):
         if self.is_leaf() and self.lower_or_equal_f_than(lowest):
             return self
         if self.children:
             for child in self.children:
-                lowest = child.search_low_leaf_node_f(lowest)
+                lowest = child.search_leaf_node_lower_than(lowest)
         return lowest
 
     def search_first_leaf_node(self):

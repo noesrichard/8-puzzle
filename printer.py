@@ -5,6 +5,8 @@ class TreePrinter:
     def __init__(self, tree: Tree) -> None:
         self.tree = tree
         self.root = tree.root
+        self.color = '\033[93m'
+        self.end = '\033[0m'
 
     def print_tree(self):
         if self.root:
@@ -13,7 +15,14 @@ class TreePrinter:
             print("None root")
 
     def print_formatted_node_info(self, node, prefix):
-        print(f"{prefix} g(n) = {node.g()}, h(n) = {node.puzzle.h()}, f(n) = {node.f()}, hoja={' SI' if node.is_leaf() else ' NO'} {'****SOLUCION*****' if node.puzzle.is_solved() else ''}")
+        is_solved = node.puzzle.is_solved()
+        text = ""
+        if is_solved:
+            text += self.color
+        text += f"{prefix} g(n) = {node.g()}, h(n) = {node.puzzle.h()}, f(n) = {node.f()}, hoja={' SI' if node.is_leaf() else ' NO'} "
+        if is_solved:
+            text += f"{'****SOLUCION*****' if is_solved else ''}{self.end}"
+        print(text)
 
     def print_node(self, node):
         spaces = " " * node.g() * 5

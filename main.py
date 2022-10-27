@@ -1,13 +1,13 @@
 from puzzle import Puzzle
 from tree import Tree
 from printer import TreePrinter
-from menus import select_init_state, select_objective, start_menu, menu
+from menus import select_init_state, select_objective_state, start_menu, menu
 from utils import random_puzzle
 
 
 def main():
     init = select_init_state()
-    objective = select_objective()
+    objective = select_objective_state()
 
     puzzle = Puzzle(init, objective)
 
@@ -17,7 +17,7 @@ def main():
     start_menu(puzzle)
 
     tree = Tree(puzzle)
-    tree.generate()
+    tree.solve()
 
     printer = TreePrinter(tree)
 

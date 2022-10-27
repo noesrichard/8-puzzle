@@ -75,7 +75,13 @@ class Puzzle:
 
 
     def print(self, spaces = ''): 
-        text = spaces + "_____ \n"
+        color = '\033[93m'
+        end = '\033[0m'
+        text = ""
+        is_solved = self.is_solved()
+        if is_solved:
+         text = color
+        text += spaces + "_____ \n"
         blanks = ""
         for i in range(len(spaces)):
             if i == len(spaces)-3:
@@ -88,6 +94,8 @@ class Puzzle:
                 text +=  str(n) + ' '
             text += '\n'
         text += spaces + '_____ '
+        if is_solved: 
+            text += end
         return text
 
     def print_objective(self, spaces = ''):
@@ -145,6 +153,13 @@ class Puzzle:
         self.matrix[self.i][self.j] = self.matrix[self.i][self.j-1]
         self.matrix[self.i][self.j-1] = 0
 
+    def has_more_than_one_zero(self):
+        count = 0
+        for i in range(len(self.matrix)):
+            for j in range(len(self.matrix[i])):
+                if self.matrix[i][j] == 0:
+                    count += 1
+        return count > 1
 
 
 

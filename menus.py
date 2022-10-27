@@ -12,6 +12,12 @@ def start_menu(puzzle):
     print("Puzzle seleccionado")
     print("Estado Inicial")
     print(puzzle.print())
+    if not puzzle.is_solvable():
+        print("No se puede resolver")
+        exit()
+    if puzzle.has_more_than_one_zero():
+        print("Tiene mas de un zero (espacio en blanco) no se puede resolver")
+        exit()
     print("Estado Objetivo")
     print(puzzle.print_objective())
     option = int(input("Ingrese 1 para continuar: "))
@@ -36,7 +42,7 @@ def menu(printer):
             options[option]()
 
 
-def select_objective():
+def select_objective_state():
     options = {
         1: [[0, 1, 2], [3, 4, 5], [6, 7, 8]],
         2: [[1, 2, 3], [4, 5, 6], [7, 8, 0]],

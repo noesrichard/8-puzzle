@@ -7,20 +7,20 @@ class Tree:
         self.solution = None
 
 
-    def generate(self) -> None:
+    def solve(self) -> None:
         self.root = Node(self.puzzle)
         self.current = self.root
         i = 0
-        while self.solution is None or self.solution is not self.root.search_low_leaf_node_f(self.solution):
+        while self.solution is None or self.solution is not self.root.search_leaf_node_lower_than(self.solution):
             i += 1
             print(f"Busqueda: {i}")
 
             lowest = self.root.search_first_leaf_node()
-            self.current = self.root.search_low_leaf_node_f(lowest)
+            self.current = self.root.search_leaf_node_lower_than(lowest)
 
             if self.current:
 
-                response = self.current.generate()
+                response = self.current.generate_children()
 
                 if response is not None:
 
