@@ -44,13 +44,32 @@ class Node:
             p = p.parent
         return level
 
-    def search_leaf_node_lower_than(self, lowest):
+    def search_leaf_node_lower_or_equal_than(self, lowest):
         if self.is_leaf() and self.lower_or_equal_f_than(lowest):
+            return self
+        if self.children:
+            for child in self.children:
+                lowest = child.search_leaf_node_lower_or_equal_than(lowest)
+        return lowest
+
+    def search_leaf_node_lower_than(self, lowest):
+        if self.is_leaf() and self.lower_f_than(lowest):
             return self
         if self.children:
             for child in self.children:
                 lowest = child.search_leaf_node_lower_than(lowest)
         return lowest
+
+    def exists_leaf_node_lower_than(self, node) -> bool:
+        if self.is_leaf() and self.lower_f_than(node):
+            return True 
+        exists = False
+        if self.children:
+            for child in self.children:
+                 exists = child.exists_leaf_node_lower_than(node)
+                 if exists:
+                    break
+        return exists
 
     def search_first_leaf_node(self):
         if self.is_leaf():
@@ -61,4 +80,7 @@ class Node:
 
     def lower_or_equal_f_than(self, other) -> bool:
         return self.f() <= other.f()
+
+    def lower_f_than(self, other) -> bool:
+        return self.f() < other.f()
 

@@ -11,20 +11,22 @@ class Tree:
         self.root = Node(self.puzzle)
         self.current = self.root
         i = 0
-        while self.solution is None or self.solution is not self.root.search_leaf_node_lower_than(self.solution):
+        while (self.solution is None 
+            or self.solution is not self.root.search_leaf_node_lower_or_equal_than(self.solution)):
             i += 1
             print(f"Busqueda: {i}")
 
-            lowest = self.root.search_first_leaf_node()
-            self.current = self.root.search_leaf_node_lower_than(lowest)
+            leaf_node = self.root.search_first_leaf_node()
+
+            if self.root.exists_leaf_node_lower_than(leaf_node):
+                self.current = self.root.search_leaf_node_lower_than(leaf_node)
+            else:
+                self.current = self.root.search_leaf_node_lower_or_equal_than(leaf_node)
 
             if self.current:
 
-                response = self.current.generate_children()
+                self.solution = self.current.generate_children()
 
-                if response is not None:
-
-                    self.solution = response
         print(f"Total de iteraciones: {i} ")
 
 
