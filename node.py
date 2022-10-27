@@ -9,7 +9,7 @@ class Node:
 
     def add_child(self, puzzle):
         if self.is_repeated(puzzle):
-            print( f"Cannot make that same move: position = ({self.puzzle.i}, {self.puzzle.j})")
+            #print( f"Cannot make that same move: position = ({self.puzzle.i}, {self.puzzle.j})")
             return
         child = Node(puzzle)
         child.parent = self
@@ -25,6 +25,7 @@ class Node:
         for i in Moves:
             matrix = self.puzzle.get_matrix()
             new_puzzle = Puzzle(matrix, self.puzzle.obj)
+            #print(f"Move done: {i} init: {self.puzzle.i},{self.puzzle.j} next: {new_puzzle.i},{new_puzzle.j}")
             if new_puzzle.move(i):
                 self.add_child(new_puzzle)
         return None

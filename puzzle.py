@@ -47,7 +47,7 @@ class Puzzle:
             self.__set_zero_position()
             return True
         else:
-            print(f"Cannot move that direction: {direction} i: {self.i} j: {self.j}")
+            #print(f"Cannot move that direction: {direction} i: {self.i} j: {self.j}")
             return False
 
     def check_move(self, direction: Moves) -> bool: 
@@ -82,7 +82,6 @@ class Puzzle:
                 blanks += "|"
             else:
                 blanks += " "
-
         for row in self.matrix:
             text += blanks
             for n in row:
@@ -90,6 +89,23 @@ class Puzzle:
             text += '\n'
         text += spaces + '_____ '
         return text
+
+    def print_objective(self, spaces = ''):
+        text = spaces + "_____ \n"
+        blanks = ""
+        for i in range(len(spaces)):
+            if i == len(spaces)-3:
+                blanks += "|"
+            else:
+                blanks += " "
+        for row in self.obj:
+            text += blanks
+            for n in row:
+                text +=  str(n) + ' '
+            text += '\n'
+        text += spaces + '_____ '
+        return text
+
     
     def get_matrix(self) -> list[list[int]]:
         new_matrix = []
@@ -99,7 +115,19 @@ class Puzzle:
                 new_row.append(j)
             new_matrix.append(new_row)
         return new_matrix
-    
+
+    def get_inv_count(self, arr):
+        inv_count = 0
+        empty_value = 0
+        for i in range(0, 9):
+            for j in range(i + 1, 9):
+                if arr[j] != empty_value and arr[i] != empty_value and arr[i] > arr[j]:
+                    inv_count += 1
+        return inv_count
+ 
+    def is_solvable(self):
+        inv_count = self.get_inv_count([j for sub in self.matrix for j in sub])
+        return (inv_count % 2 == 0)
 
     def __move_up(self) -> None: 
         self.matrix[self.i][self.j] = self.matrix[self.i-1][self.j]
