@@ -14,6 +14,11 @@ class TreePrinter:
         else:
             print("None root")
 
+    def print_tree_info(self):
+        print(f"Total de iteraciones: {self.tree.iter} ")
+        print(f"Numero de hojas: {len(self.tree.leafs)}")
+        print(f"Numero de nodos abiertos: {self.tree.open_nodes}")
+
     def print_formatted_node_info(self, node, prefix):
         is_solved = node.puzzle.is_solved()
         text = ""

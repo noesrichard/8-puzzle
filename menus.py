@@ -31,6 +31,7 @@ def menu(printer):
             1: printer.print_tree,
             2: printer.print_steps_solution,
         }
+        printer.print_tree_info()
         option = int(
             input(
                 " -----MENU----- \n [1] Mostar Arbol \n [2] Mostrar pasos para la solucion \n [0] Salir \n Respuesta: "
