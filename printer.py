@@ -15,7 +15,6 @@ class TreePrinter:
             print("None root")
 
     def print_tree_info(self):
-        print(f"Total de iteraciones: {self.tree.iter} ")
         print(f"Numero de hojas: {len(self.tree.leafs)}")
         print(f"Numero de nodos abiertos: {self.tree.open_nodes}")
 
