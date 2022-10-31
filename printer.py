@@ -8,6 +8,7 @@ class TreePrinter:
         self.color = '\033[93m'
         self.end = '\033[0m'
 
+    # imprime el arbol
     def print_tree(self):
         if self.root:
             self.print_node(self.root)
@@ -28,6 +29,7 @@ class TreePrinter:
             text += f"{'****SOLUCION*****' if is_solved else ''}{self.end}"
         print(text)
 
+    # imprime el nodo y sus hijos de manera recursiva
     def print_node(self, node):
         spaces = " " * node.g() * 5
         prefix = spaces + "|__" if node.parent else ""

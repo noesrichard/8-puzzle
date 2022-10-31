@@ -19,6 +19,7 @@ class Puzzle:
                     return [i,j]
         return [-1,-1]
 
+    # funcion heuristica
     def h(self):
         total = 0
         for i in range(1,9):
@@ -74,6 +75,7 @@ class Puzzle:
         return True
 
 
+    # impresion del Puzzle
     def print(self, spaces = ''): 
         color = '\033[93m'
         end = '\033[0m'

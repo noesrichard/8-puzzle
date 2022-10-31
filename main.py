@@ -6,21 +6,30 @@ from utils import random_puzzle
 
 
 def main():
+
+    # seleccionamos estado inicial 
     init = select_init_state()
+    # seleccion estado objetivo
     objective = select_objective_state()
 
+    # creamos estado objetivo
     puzzle = Puzzle(init, objective)
 
+    # si el puzzle no es solucionable creamos uno nuevo
     while not puzzle.is_solvable():
         puzzle.matrix = random_puzzle()
 
+    # menu para comenzar a resolver
     start_menu(puzzle)
 
+    # creamos el arbol y lo resolvemos
     tree = Tree(puzzle)
     tree.solve()
 
+    # impresora
     printer = TreePrinter(tree)
 
+    # menu
     menu(printer)
 
 

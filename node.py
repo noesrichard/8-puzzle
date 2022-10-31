@@ -14,16 +14,24 @@ class Node:
         child.parent = self
         self.children.append(child)
 
+    # comprueba si el nodo es igual que el padre, para que no se repita
     def is_repeated(self, puzzle):
         if self.parent:
             return self.parent.puzzle.equals(puzzle)
 
+
+    # genera los hijos, movimientos
     def generate_children(self):
+        # comprueba si el puzzle esta resuelto
         if self.puzzle.is_solved():
             return self
+
+        # generea los movimientos si se puede
         for i in Moves:
             matrix = self.puzzle.get_matrix()
             new_puzzle = Puzzle(matrix, self.puzzle.obj)
+
+            # comprueba si el movimiento es valido
             if new_puzzle.move(i):
                 self.add_child(new_puzzle)
         return None
@@ -33,9 +41,11 @@ class Node:
             return False
         return True
 
+    # funcion de comparacion de cada nodo
     def f(self):
         return self.g() + self.puzzle.h()
 
+    # funcion de costo del camino
     def g(self):
         level = 0
         p = self.parent
@@ -44,6 +54,7 @@ class Node:
             p = p.parent
         return level
 
+    # buscar nodos menor o igual que el nodo actual en f(n)
     def search_leaf_node_lower_or_equal_than(self, lowest):
         if self.is_leaf() and self.lower_or_equal_f_than(lowest):
             return self
@@ -60,6 +71,8 @@ class Node:
                 lowest = child.search_leaf_node_lower_than(lowest)
         return lowest
 
+
+    # busca si existe un nodo mejor que otro nodo
     def exists_leaf_node_lower_than(self, node) -> bool:
         if self.is_leaf() and self.lower_f_than(node):
             return True 
@@ -78,6 +91,7 @@ class Node:
             for child in self.children:
                 return child.search_first_leaf_node()
 
+    # comparacion entre f(n) del nodo actual y del menor
     def lower_or_equal_f_than(self, other) -> bool:
         return self.f() <= other.f()
 
