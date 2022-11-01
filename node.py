@@ -56,16 +56,20 @@ class Node:
 
     # buscar nodos menor o igual que el nodo actual en f(n)
     def search_leaf_node_lower_or_equal_than(self, lowest):
+        # si el nodo es una hoja y si es menor o igual al nodo menor se retorna a si mismo
         if self.is_leaf() and self.lower_or_equal_f_than(lowest):
             return self
+        # si tiene hijos busca en sus hijos con recursivdidad
         if self.children:
             for child in self.children:
                 lowest = child.search_leaf_node_lower_or_equal_than(lowest)
         return lowest
 
     def search_leaf_node_lower_than(self, lowest):
+        # si el nodo es una hoja y si es menor o igual al nodo menor se retorna a si mismo
         if self.is_leaf() and self.lower_f_than(lowest):
             return self
+        # si tiene hijos busca en sus hijos con recursivdidad
         if self.children:
             for child in self.children:
                 lowest = child.search_leaf_node_lower_than(lowest)
